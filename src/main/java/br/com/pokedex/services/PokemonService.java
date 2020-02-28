@@ -37,7 +37,8 @@ public class PokemonService {
 			throw new pokemonNaoListado("Esse item não existe!");
 		}
 	}
-	public void atualizar(Pokemon pokemon) {
+	public void atualizar(Pokemon pokemon, Long id) {
+		pokemon.setId(id);
 		Pokedex.save(pokemon);
 	}
 }

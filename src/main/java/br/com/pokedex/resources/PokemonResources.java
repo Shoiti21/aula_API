@@ -35,31 +35,17 @@ public class PokemonResources {
 	}
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) //ENCONTRAR
 	public ResponseEntity<?> findPokemon(@PathVariable Long id){
-		Optional<Pokemon> pokemon=null;
-		try {
-			pokemon=PokemonService.buscar(id);
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
+		 Optional<Pokemon> pokemon=PokemonService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(pokemon);
 	}
 	@RequestMapping(value="/{id}",method=RequestMethod.DELETE) //DELETAR
 	public ResponseEntity<Void> delPokemon(@PathVariable Long id){
-		try {
-			PokemonService.deletar(id);
-		} catch (pokemonNaoListado e) {
-			return ResponseEntity.notFound().build();
-		}
+		PokemonService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT) //EDITAR
 	public ResponseEntity<Void> editPokemon(@RequestBody Pokemon pokemon, Long id) {
-		pokemon.setId(id);
-		try {
-			PokemonService.atualizar(pokemon);
-		} catch (pokemonNaoListado e) {
-			return ResponseEntity.notFound().build();
-		}
+		PokemonService.atualizar(pokemon,id);
 		return ResponseEntity.noContent().build();
 	}
 }
